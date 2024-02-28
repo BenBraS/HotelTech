@@ -12,6 +12,7 @@ let idReserva = 1;
 
 // Solicitar nombre al usuario
 let nombreCliente = prompt("¡Bienvenido a " + nombreHotel + "! Por favor, ingrese su nombre:");
+nombreCliente = nombreCliente.toLowerCase();
 
 // Función constructora para las reservas
 function Reserva(id, nombreCliente, tipoHabitacion, cantidadNoches, cantidadHabitaciones, costoTotal) {
@@ -25,7 +26,7 @@ function Reserva(id, nombreCliente, tipoHabitacion, cantidadNoches, cantidadHabi
 
 // Función para mostrar el resumen de la reserva
 function mostrarResumen(reserva) {
-    alert("Resumen de la reserva:\n\nID de Reserva: " + reserva.id + "\nHotel: " + nombreHotel + "\nCliente: " + reserva.nombreCliente + "\nTipo de Habitación: " + (reserva.tipoHabitacion === '1' ? "Habitación Estándar" : "Habitación Superior") + "\nNoches: " + reserva.cantidadNoches + "\nHabitaciones: " + reserva.cantidadHabitaciones + "\nCosto total: $" + reserva.costoTotal);
+    alert("Resumen de la reserva:\n\nID de Reserva: " + reserva.id + "\nCliente: " + reserva.nombreCliente + "\nTipo de Habitación: " + (reserva.tipoHabitacion === 1 ? "Habitación Estándar" : "Habitación Superior") + "\nNoches: " + reserva.cantidadNoches + "\nHabitaciones: " + reserva.cantidadHabitaciones + "\nCosto total: $" + reserva.costoTotal);
 }
 
 // Función para agregar una reserva al array
@@ -38,7 +39,7 @@ function agregarReserva(tipoHabitacion, cantidadNoches, cantidadHabitaciones, co
 
 // Función para calcular el costo total
 function calcularCostoTotal(tipoHabitacion, cantidadNoches, cantidadHabitaciones) {
-    let costoPorNoche = tipoHabitacion === '1' ? costoPorNocheStandard : costoPorNocheSuperior;
+    let costoPorNoche = tipoHabitacion === 1 ? costoPorNocheStandard : costoPorNocheSuperior;
     return costoPorNoche * parseInt(cantidadNoches) * parseInt(cantidadHabitaciones);
 }
 
@@ -52,7 +53,7 @@ function realizarReserva() {
 
         switch (opcionMenu) {
             case '1':
-                nombreCliente = prompt("Ingrese el nuevo nombre del cliente:");
+                nombreCliente = prompt("Modificar Nombre | Nueva Reserva");
                 break;
             case '2':
                 tipoHabitacion = prompt("¿Qué tipo de habitación prefiere?\n1. Habitación Estándar\n2. Habitación Superior");
@@ -80,7 +81,7 @@ function realizarReserva() {
                 }
                 break;
             case '6':
-                alert("Saliendo del programa. ¡Hasta luego!");
+                alert("Saliendo del programa.");
                 break;
             default:
                 alert("Opción no válida. Por favor, seleccione una opción válida.");
