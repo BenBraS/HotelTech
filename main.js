@@ -94,3 +94,11 @@ realizarReserva();
 // Mostrar las reservas almacenadas al finalizar el programa
 console.log("Reservas realizadas:");
 console.log(reservas);
+
+// Buscar y mostrar reservas por nombre de cliente
+const nombreBusqueda = prompt("Ingrese el nombre para buscar reservas:").toLowerCase();
+const reservasEncontradas = reservas.filter(reserva => reserva.nombreCliente.toLowerCase() === nombreBusqueda);
+
+console.log(reservasEncontradas.length > 0
+  ? "Reservas encontradas para " + nombreBusqueda + ": " + JSON.stringify(reservasEncontradas)
+  : "No se encontraron reservas para " + nombreBusqueda + ".");
