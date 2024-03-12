@@ -4,10 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HotelTech</title>
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-   
-    <script src="./main.js"> </script>
+    <div id="contenedor_reserva">
+    <h1>¡Bienvenido a HotelTech!</h1>
+    <div>
+        <label for="nombreCliente">Su Nombre:</label>
+        <input type="text" id="nombreCliente" placeholder="Ingrese Su nombre">
+    </div>
+
+    <div>
+        <label for="tipoHabitacion">Tipo de Habitación:</label>
+        <select id="tipoHabitacion">
+            <option value="1">Pieza Standard</option>
+            <option value="2">Pieza Superior</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="cantidadNoches">Número de noches:</label>
+        <input type="number" id="cantidadNoches" placeholder="Ingrese número de noches">
+    </div>
+
+    <div>
+        <label for="cantidadHabitaciones">Número de habitaciones:</label>
+        <input type="number" id="cantidadHabitaciones" placeholder="Ingrese el número de habitaciones">
+    </div>
+
+    <button id="confirmarReservaBtn">Confirmar Reserva</button>
+</div>
+
+<div id="resumenContainer"></div>
+
+<script src="./main.js"> </script>
 </body>
 </html>
 

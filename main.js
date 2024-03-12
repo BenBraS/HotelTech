@@ -1,20 +1,12 @@
-// ENTREGA N 2 v2
-// Definir variables para el hotel
+// ENTREGA N 3 v3
+
 const nombreHotel = "HotelTech";
 const costoPorNocheStandard = 1000;
 const costoPorNocheSuperior = 1500;
 
-// Array para almacenar las reservas con IDs
 let reservas = [];
-
-// Variable para generar IDs únicos
 let idReserva = 1;
-
-// Solicitar nombre al usuario
-let nombreCliente = prompt("¡Bienvenido a " + nombreHotel + "! Por favor, ingrese su nombre:");
-nombreCliente = nombreCliente.toLowerCase();
-
-// Función constructora para las reservas
+// Función Constructora de reservas
 function Reserva(id, nombreCliente, tipoHabitacion, cantidadNoches, cantidadHabitaciones, costoTotal) {
     this.id = id;
     this.nombreCliente = nombreCliente;
@@ -23,82 +15,126 @@ function Reserva(id, nombreCliente, tipoHabitacion, cantidadNoches, cantidadHabi
     this.cantidadHabitaciones = cantidadHabitaciones;
     this.costoTotal = costoTotal;
 }
-
 // Función para mostrar el resumen de la reserva
 function mostrarResumen(reserva) {
-    alert("Resumen de la reserva:\n\nID de Reserva: " + reserva.id + "\nCliente: " + reserva.nombreCliente + "\nTipo de Habitación: " + (reserva.tipoHabitacion === 1 ? "Habitación Estándar" : "Habitación Superior") + "\nNoches: " + reserva.cantidadNoches + "\nHabitaciones: " + reserva.cantidadHabitaciones + "\nCosto total: $" + reserva.costoTotal);
-}
+    const resumenContainer = document.getElementById("resumenContainer");
 
-// Función para agregar una reserva al array
+    // Crear tarjetas en un div y clase para estilos
+    const tarjetaReserva = document.createElement("div");
+    tarjetaReserva.classList.add("tarjeta_reserva");
+
+    // Crear los elementos dentro de la tarjeta
+    const idReservaElemento = document.createElement("p");
+    idReservaElemento.textContent = "ID de reserva: " + reserva.id;
+
+    const clienteElemento = document.createElement("p");
+    clienteElemento.textContent = "Cliente: " + reserva.nombreCliente;
+
+    const tipoHabitacionElemento = document.createElement("p");
+    tipoHabitacionElemento.textContent = "Tipo de habitación: " + (reserva.tipoHabitacion === 1 ? "Habitación estándar" : "Habitación superior");
+
+    const nochesElemento = document.createElement("p");
+    nochesElemento.textContent = "Noches: " + reserva.cantidadNoches;
+
+    const habitacionesElemento = document.createElement("p");
+    habitacionesElemento.textContent = "Habitaciones: " + reserva.cantidadHabitaciones;
+
+    const costoTotalElemento = document.createElement("p");
+    costoTotalElemento.textContent = "Costo total: $" + reserva.costoTotal;
+
+    // Agregar elementos a la tarjeta
+    tarjetaReserva.appendChild(idReservaElemento);
+    tarjetaReserva.appendChild(clienteElemento);
+    tarjetaReserva.appendChild(tipoHabitacionElemento);
+    tarjetaReserva.appendChild(nochesElemento);
+    tarjetaReserva.appendChild(habitacionesElemento);
+    tarjetaReserva.appendChild(costoTotalElemento);
+
+    // Agregar la tarjeta al contenedor
+    resumenContainer.appendChild(tarjetaReserva);
+}
 function agregarReserva(tipoHabitacion, cantidadNoches, cantidadHabitaciones, costoTotal) {
-    let nuevaReserva = new Reserva(idReserva, nombreCliente, tipoHabitacion, cantidadNoches, cantidadHabitaciones, costoTotal);
+    let nuevaReserva = new Reserva(idReserva, document.getElementById("nombreCliente").value, tipoHabitacion, cantidadNoches, cantidadHabitaciones, costoTotal);
     reservas.push(nuevaReserva);
     idReserva++;
     return nuevaReserva;
 }
 
-// Función para calcular el costo total
 function calcularCostoTotal(tipoHabitacion, cantidadNoches, cantidadHabitaciones) {
     let costoPorNoche = tipoHabitacion === 1 ? costoPorNocheStandard : costoPorNocheSuperior;
     return costoPorNoche * parseInt(cantidadNoches) * parseInt(cantidadHabitaciones);
 }
 
-// Función Principal
 function realizarReserva() {
-    let tipoHabitacion, cantidadNoches, cantidadHabitaciones;
-    let opcionMenu;
+    let tipoHabitacion = document.getElementById("tipoHabitacion").value;
+    let cantidadNoches = document.getElementById("cantidadNoches").value;
+    let cantidadHabitaciones = document.getElementById("cantidadHabitaciones").value;
 
-    do {
-        opcionMenu = prompt("Menú de opciones:\n1. Modificar nombre del cliente\n2. Modificar tipo de habitación\n3. Modificar cantidad de noches\n4. Modificar cantidad de habitaciones\n5. Confirmar reserva\n6. Salir del programa\nIngrese el número de la opción:");
-
-        switch (opcionMenu) {
-            case '1':
-                nombreCliente = prompt("Modificar Nombre | Nueva Reserva");
-                break;
-            case '2':
-                tipoHabitacion = prompt("¿Qué tipo de habitación prefiere?\n1. Habitación Estándar\n2. Habitación Superior");
-                break;
-            case '3':
-                cantidadNoches = prompt("¿Cuántas noches planea quedarse?");
-                break;
-            case '4':
-                cantidadHabitaciones = prompt("¿Cuántas habitaciones desea reservar?");
-                break;
-            case '5':
-                // Calcular el costo total
-                let costoTotal = calcularCostoTotal(tipoHabitacion, cantidadNoches, cantidadHabitaciones);
-
-                // Mostrar la información al usuario y obtener la reserva
-                let reserva = agregarReserva(tipoHabitacion, cantidadNoches, cantidadHabitaciones, costoTotal);
-                mostrarResumen(reserva);
-
-                // Confirmar la reserva
-                let confirmarReserva = prompt("¿Desea confirmar la reserva? (Ingrese 'si' para confirmar, 'no' para volver al menú)");
-                if (confirmarReserva.toLowerCase() === 'si') {
-                    alert("¡Reserva confirmada! Gracias por elegir " + nombreHotel + ". Disfrute de su estancia.");
-                } else if (confirmarReserva.toLowerCase() === 'no') {
-                    alert("Reserva cancelada. Volviendo al menú");
-                }
-                break;
-            case '6':
-                alert("Saliendo del programa.");
-                break;
-            default:
-                alert("Opción no válida. Por favor, seleccione una opción válida.");
-        }
-    } while (opcionMenu !== '6');
+  // VALIDACIONES || CAMPO CLIENTE NO VACÍO
+  let nombreClienteInput = document.getElementById("nombreCliente");
+  if (!nombreClienteInput || nombreClienteInput.value.trim() === "") {
+      alert("Por favor, ingrese su nombre.");
+      return;
+  }
+  let nombreCliente = nombreClienteInput.value;
+// Validar que se haya seleccionado un tipo de habitación
+if (!tipoHabitacion) {
+    alert("Por favor, seleccione un tipo de habitación.");
+    return;
 }
 
-// Iniciar el proceso de reserva || Función Principal
-realizarReserva();
-// Mostrar las reservas almacenadas al finalizar el programa
-console.log("Reservas realizadas:");
-console.log(reservas);
+// Validar que la cantidad de noches sea un número válido
+if (isNaN(cantidadNoches) || cantidadNoches <= 0) {
+    alert("Por favor, ingrese un número válido para la cantidad de noches.");
+    return;
+}
 
-// Buscar y mostrar reservas por nombre de cliente
-const nombreBusqueda = prompt("Ingrese el nombre para buscar reservas:").toLowerCase();
-const reservasEncontradas = reservas.filter(reserva => reserva.nombreCliente.toLowerCase() === nombreBusqueda);
+// Validar que la cantidad de habitaciones sea un número válido
+if (isNaN(cantidadHabitaciones) || cantidadHabitaciones <= 0) {
+    alert("Por favor, ingrese un número válido para la cantidad de habitaciones.");
+    return;
+}
+/// Si todos los campos están validados, continuar función
+    let costoTotal = calcularCostoTotal(tipoHabitacion, cantidadNoches, cantidadHabitaciones);
+    let reserva = agregarReserva(tipoHabitacion, cantidadNoches, cantidadHabitaciones, costoTotal);
 
-console.log(reservasEncontradas.length > 0
-  ? "Reservas encontradas para " + nombreBusqueda + ": " + JSON.stringify(reservasEncontradas)
-  : "No se encontraron reservas para " + nombreBusqueda + ".");
+    let confirmarReserva = window.confirm("¿Desea confirmar la reserva?");
+    
+    
+
+    if (confirmarReserva) {
+        mostrarResumen(reserva);
+        const mensajeConfirmacion = document.createElement("p");
+        mensajeConfirmacion.textContent = "¡Reserva confirmada! Gracias por hospedarse en  " + nombreHotel + ". ¡Disfrute de su estancia!";
+        document.body.appendChild(mensajeConfirmacion);
+        guardarReservasEnLocalStorage();
+    } else {
+        const mensajeCancelacion = document.createElement("p");
+        mensajeCancelacion.textContent = "Reserva cancelada.";
+        document.body.appendChild(mensajeCancelacion);
+    }
+}
+
+function cargarReservasDesdeLocalStorage() {
+    const reservasGuardadas = localStorage.getItem("reservas");
+    if (reservasGuardadas) {
+        reservas = JSON.parse(reservasGuardadas);
+        idReserva = reservas.length > 0 ? reservas[reservas.length - 1].id + 1 : 1;
+    }
+}
+
+function guardarReservasEnLocalStorage() {
+    localStorage.setItem("reservas", JSON.stringify(reservas));
+}
+// Obtén el botón por su ID
+const confirmarReservaBtn = document.getElementById("confirmarReservaBtn");
+
+// Agrega el evento click al botón e inicializa función principal. 
+if (confirmarReservaBtn) {
+    confirmarReservaBtn.addEventListener("click", function () {
+        realizarReserva();
+    });
+}
+
+cargarReservasDesdeLocalStorage();
+
