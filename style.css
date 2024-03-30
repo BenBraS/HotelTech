@@ -63,3 +63,26 @@ button:hover {
     float: left; /* Hace que el contenedor del formulario se ubique a la izquierda */
     margin-right: 20px;
 }
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f2f2f2;
+    padding: 10px;
+    box-sizing: border-box;
+    max-height: 170px;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around; /* Distribuye el espacio alrededor de los elementos */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en múltiples líneas */
+}
+
+.reserva_footer {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px;
+    width: calc(33.33% - 10px); /* Establece el ancho de cada reserva a un tercio del ancho total con un margen de 5px */
+    box-sizing: border-box;
+}
